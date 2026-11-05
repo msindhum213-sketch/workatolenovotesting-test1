@@ -1,1 +1,39 @@
-smoke testing
+import time
+
+class LoginSystem:
+
+    def __init__(self):
+        self.timeout = 5
+        self.username = "testuser"
+        self.password = "test123"
+
+    def login(self, username, password):
+        print("Login started...")
+
+        time.sleep(2)
+
+        if username == self.username and password == self.password:
+            print("Login successful!")
+            return True
+        else:
+            print("Invalid username or password")
+            return False
+
+    def check_session(self, last_activity):
+        current_time = time.time()
+
+        if current_time - last_activity > self.timeout:
+            print("Session expired due to login timeout")
+            return False
+
+        return True
+
+
+if __name__ == "__main__":
+    app = LoginSystem()
+
+    app.login("testuser", "test123")
+
+    app.login("wronguser", "wrong123")
+
+    app.check_session(time.time() - 10)
